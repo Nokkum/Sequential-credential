@@ -1,0 +1,18 @@
+# Core cryptography and key management
+cryptography>=41.0.0
+
+# HTTP requests for token validation
+requests>=2.31.0
+
+# JWT handling
+PyJWT>=2.9.0
+
+# Clipboard management
+pyperclip>=1.9.0
+
+# Optional system tray
+pystray>=0.22.3
+Pillow>=10.0.0
+
+# PostgreSQL support (optional)
+psycopg2-binary>=2.9.9
