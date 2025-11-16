@@ -1,2 +1,82 @@
-<h1 align="center">Credential System</h1>
-<p align="center"></p>
+<h1 align="center">Sequential Credential Manager</h1>
+<p align="center">
+  A modular, secure credential management system designed for developers and tech-savvy users. Stores tokens, API keys, and credentials encrypted, supports multiple storage backends, and includes utilities for migration, scanning, and RBAC enforcement.
+</p>
+
+# Features
+
+- **Master-Password Encryption**: All credentials are encrypted with a master password using modern cryptography (Fernet + PBKDF2).
+- **Flexible Storage**: Store credentials in local JSON + filesystem encrypted blobs or SQLite database. Optional Postgres support.
+- **Migration Utility**: Migrate existing filesystem-stored credentials into database blobs.
+- **GUI Interface**: Tkinter-based GUI with master-password prompt, save/load/delete operations, import/export, and migration support.
+- **Profile Management**: Manage multiple user profiles, each with independent credentials.
+- **RBAC Support**: Role-based access control scaffold for admin, standard, and readonly roles.
+- **Advanced Crypto**: Per-provider derived keys with AES key wrapping.
+- **Token Validation**: Built-in token checks for Discord, GitHub, and more.
+- **Clipboard Auto-Wipe**: Securely copy credentials to clipboard with automatic clearing.
+- **Secret Scanner**: Scan text or files for sensitive information like API keys and tokens.
+- **Extensible Templates**: Provider templates for standardized credential entry.
+
+# Directory Structure
+```
+project_root/
+│
+├─ main.py               # Entry point for GUI
+├─ requirements.txt
+├─ README.md
+├─ gui/
+│  ├─ app.py             # Main GUI logic
+│  └─ tray.py            # Optional system tray scaffold
+│
+└─ core/
+   ├─ __init__.py        # Public interface
+   ├─ security.py        # EncryptionManager
+   ├─ database.py        # JSON + SQLite + optional Postgres storage
+   ├─ configs.py         # Filesystem credential management
+   ├─ migration.py       # Filesystem → DB migration
+   ├─ launch.py          # (Optional bot launch removed if not needed)
+   ├─ validators.py      # Token validation helpers
+   ├─ expiry.py          # Token expiration heuristics
+   ├─ profiles.py        # Profile management
+   ├─ templates.py       # Provider templates
+   ├─ roles.py           # RBAC scaffold
+   ├─ generators.py      # JWT / GitHub app token helpers
+   ├─ scanner.py         # Secret scanning
+   ├─ crypto_advanced.py # Advanced cryptography utilities
+   └─ secure_memory.py   # Secure memory handling
+```
+
+# Installation
+```
+git clone <repo-url>
+cd sequential-credential-manager
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+# or on Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+# Environment Variables
+- **MASTER_PASSWORD**: Optional environment variable for the master password
+```
+# Linux/macOS
+export MASTER_PASSWORD="your-strong-password"
+
+# Windows PowerShell
+$env:MASTER_PASSWORD="your-strong-password"
+```
+
+# Quick Start
+```
+python main.py
+```
+
+- Save, delete, import, or export credentials via GUI.
+- Choose whether to store encrypted blobs in the database or filesystem.
+- Use **Migrate** → **Filesystem** → **DB** to move legacy credentials into DB.
+
+# CLI Utilities
+- Migration Helper (file system ↓ DB):
+```
+python -m core.migration --migrate
+```
