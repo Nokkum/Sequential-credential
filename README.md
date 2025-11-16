@@ -1,6 +1,6 @@
 <h1 align="center">Sequential Credential Manager</h1>
 <p align="center">
-  A modular, secure credential management system designed for developers and tech-savvy users. Stores tokens, API keys, and credentials encrypted, supports multiple storage backends, and includes utilities for migration, scanning, and RBAC enforcement.
+  A modular, secure credential management system designed for developers. Stores tokens, API keys, and credentials encrypted, supports multiple storage backends, and includes utilities for migration, scanning, and RBAC enforcement.
 </p>
 
 # Features
