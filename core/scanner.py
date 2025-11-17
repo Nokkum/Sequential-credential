@@ -1,6 +1,5 @@
 import re
 from typing import List, Tuple
-from core.scanner import scan_string
 
 CANDIDATE_PATTERNS = [
     (r'AIza[0-9A-Za-z\-_]{35}', 'Google API Key'),
