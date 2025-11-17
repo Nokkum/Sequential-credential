@@ -1,6 +1,6 @@
 <h1 align="center">Sequential Credential Manager</h1>
 <p align="center">
-  [![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/Nokkum/Sequential-Credential/releases/tag/v1.0)
+  [![Version](https://img.shields.io/badge/Version-1.0-blue.svg)](https://github.com/Nokkum/Sequential-Credential/releases/tag/v1.0)
   [![License: Apache 2.0](https://img.shields.io/badge/License-Apache 2.0-yellow.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 </p>
 <p align="center">
