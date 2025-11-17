@@ -1,5 +1,9 @@
 <h1 align="center">Sequential Credential Manager</h1>
 <p align="center">
+  [![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/Nokkum/Sequential-Credential/releases/tag/v1.0)
+[![License: MIT](https://img.shields.io/badge/License-Apache 2.0-yellow.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+</p>
+<p align="center">
   A modular, secure credential management system designed for developers. Stores tokens, API keys, and credentials encrypted, supports multiple storage backends, and includes utilities for migration, scanning, and RBAC enforcement.
 </p>
 
