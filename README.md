@@ -1,4 +1,4 @@
-<h1 align="center">Sequential Credential Manager</h1>
+<h1 align="center">Sequential's Credential Manager</h1>
 <p align="center">
 <img src="https://img.shields.io/badge/version-1.0-Blue" alt="Version 1.0">
 <img src="https://img.shields.io/badge/Apache-2.0-Yellow" alt="Apache 2.0">
