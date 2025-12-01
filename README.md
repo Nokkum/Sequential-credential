@@ -9,15 +9,28 @@
 
 ## Changes
 
-### Version 1.1
-- Added `core/audit.py` for encrypted audit logging
-- Added `core/backup.py` for encrypted backup/restore functionality
-- Added `core/cli.py` for command-line access
-- Modified `core/clipboard.py` to include secure auto-wipe copy
-- Refactored GUI to support profile switching
-- Improved JSON + SQLite metadata storage
+### Version 1.2
+- Credential list view with a proper table showing provider, name, favorite status, and expiry
+- Real-time search/filter - just start typing to find credentials
+- Copy button with secure auto-wipe (clipboard clears after 30 seconds)
+- Keyboard shortcuts: Ctrl+S to save, Ctrl+C to copy, Ctrl+F to focus search, Escape to clear selection
+- Auto-lock timeout with configurable options (1, 5, 15, or 30 minutes of inactivity)
+- Password strength indicator when entering or rotating the master password
+- Lock screen requires master password to unlock
+- Custom categories - create your own beyond tokens and APIs
+- Favorites toggle - mark important credentials for quick access (appear at top)
+- Notes field - add descriptions, reminders, or any information about credentials
+- Expiry dates - set when credentials expire
+- Expiry reminders - warning popup on startup for credentials expiring within 7 days
+- CSV import - import credentials from spreadsheets
+- Expiry status shown in the list (shows "EXPIRED", "3d left", etc.)
+- Dark mode toggle - switch between light and dark themes (flatly, darkly, superhero, solar, cyborg, vapor)
+- Theme preference persists between sessions
+- System tray support (when pystray is available) - minimize to tray with quick access menu
 
+## Features
 
+- **Master-Password Encryption**: All credent
 ## Features
 
 - **Master-Password Encryption**: All credentials are encrypted with a master password using modern cryptography (Fernet + PBKDF2).
@@ -31,9 +44,9 @@
 - **Clipboard Auto-Wipe**: Securely copy credentials to clipboard with automatic clearing.
 - **Secret Scanner**: Scan text or files for sensitive information like API keys and tokens.
 - **Extensible Templates**: Provider templates for standardized credential entry.
-- **Audit Logging**: Records actions like add/update/delete credentials and profiles with timestamps.
-- **Backup & Restore**: Encrypted export/import of credentials and configs with integrity checks.
-- **Command-Line Interface**: Full headless access to manage credentials, profiles, and migrations from the terminal.
+- **Audit Logging**: Tracks all actions performed within the credential manager, such as creating, updating, or deleting credentials and profiles. Logs are timestamped, encrypted, and can be filtered for easy review.
+- **Backup & Restore**: Provides encrypted backup and restore functionality for credentials and configurations. Supports exporting/importing JSON + DB blobs, validating integrity, and securely merging backups with existing data.
+- **Command-Line Interface**: Enables full headless access to the credential manager. Users can add, update, delete, list, export, import credentials, switch profiles, and perform filesystem-to-DB migration entirely from the terminal.
 
 ## Directory Structure
 ```
@@ -43,6 +56,9 @@ project_root/
 ├─ requirements.txt
 ├─ LICENSE
 ├─ README.md
+├─ docs/
+│  └─ Changes.md
+│
 ├─ gui/
 │  ├─ __init__.py
 │  ├─ app.py             # Main GUI logic
@@ -57,7 +73,6 @@ project_root/
    ├─ database.py        # JSON + SQLite + optional Postgres storage
    ├─ configs.py         # Filesystem credential management
    ├─ migration.py       # Filesystem → DB migration
-   ├─ launch.py          # (Optional bot launch removed if not needed)
    ├─ validators.py      # Token validation helpers
    ├─ expiry.py          # Token expiration heuristics
    ├─ profiles.py        # Profile management
@@ -135,6 +150,17 @@ secure_copy("my-secret-token", timeout=10)
 - Role-based access is scaffold only; integrate with an authentication backend for multi-user setups.
 
 ## Versions
+- **v1.2** – 2025-12-1
+  - New table-based credential list with search/filter and favorites
+  - Clipboard copy with 30s secure auto-wipe
+  - Auto-lock timeout + lock screen requiring master password
+  - Password strength indicator for master password setup/rotation
+  - Custom categories, notes field, and expiry dates with reminders
+  - CSV import and improved expiry status display
+  - Dark mode + multiple themes with saved preferences
+  - Keyboard shortcuts (Ctrl+S/C/F, Escape)
+  - System tray support with quick-access menu
+
 - **v1.1** – 2025-11-18
   - Added audit, backup, and CLI modules
   - Clipboard auto-wipe functionality

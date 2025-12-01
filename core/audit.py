@@ -22,8 +22,7 @@ class AuditLogger:
         raw = json.dumps(entry).encode('utf-8')
         cipher = self.enc.encrypt(raw.decode('utf-8'))
         with open(self.LOG_FILE, 'ab') as f:
-            f.write(cipher + b"
-")
+            f.write(cipher + b"\n")
 
     def read_recent(self, limit: int = 200):
         if not os.path.exists(self.LOG_FILE):
