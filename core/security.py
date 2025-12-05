@@ -2,11 +2,21 @@ import os
 import json
 import base64
 import getpass
+import logging
 from typing import Optional
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 from datetime import datetime
+
+logger = logging.getLogger('sequential.security')
+
+try:
+    from rust_core import EncryptionManager as RustEncryptionManager
+    RUST_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Rust EncryptionManager not available, using Python fallback: {e}")
+    RUST_AVAILABLE = False
 
 
 class EncryptionManager:
@@ -16,6 +26,8 @@ class EncryptionManager:
     - encrypt/decrypt
     - rotate_master_password(old_pw, new_pw, db, cfg_manager)
     - lockout protection (simple local file tracking)
+    
+    Uses Rust implementation when available for improved security (Argon2id).
     """
 
     BASE = '.sequential'
@@ -25,7 +37,25 @@ class EncryptionManager:
 
     def __init__(self, master_password: Optional[str] = None):
         os.makedirs(self.BASE, exist_ok=True)
-        self.key = self._derive_key(master_password)
+        
+        pwd = master_password or os.environ.get('MASTER_PASSWORD')
+        if pwd is None:
+            try:
+                pwd = getpass.getpass('Enter master password: ')
+            except Exception:
+                pwd = 'default_master_password'
+        
+        self._use_rust = False
+        self._rust = None
+        self.key = self._derive_key(pwd)
+        
+        if RUST_AVAILABLE:
+            try:
+                self._rust = RustEncryptionManager(pwd, use_argon2=True)
+                self._use_rust = True
+                logger.info("Using Rust EncryptionManager with Argon2id")
+            except Exception as e:
+                logger.warning(f"Rust EncryptionManager initialization failed, using Python fallback: {e}")
 
     def _derive_key(self, master_password: Optional[str]) -> bytes:
         pwd = master_password or os.environ.get('MASTER_PASSWORD')
@@ -52,9 +82,13 @@ class EncryptionManager:
         return base64.urlsafe_b64encode(kdf.derive(pwdb))
 
     def encrypt(self, plaintext: str) -> bytes:
+        if self._use_rust:
+            return self._rust.encrypt(plaintext)
         return Fernet(self.key).encrypt(plaintext.encode('utf-8'))
 
     def decrypt(self, ciphertext: bytes) -> str:
+        if self._use_rust:
+            return self._rust.decrypt(ciphertext)
         return Fernet(self.key).decrypt(ciphertext).decode('utf-8')
 
     def _read_lock(self) -> dict:
@@ -69,18 +103,27 @@ class EncryptionManager:
             json.dump(data, f)
 
     def record_failed_attempt(self):
+        if self._use_rust:
+            try:
+                self._rust.record_failed_attempt()
+                return
+            except Exception as e:
+                logger.warning(f"Rust record_failed_attempt failed: {e}")
         data = self._read_lock()
         data['fails'] = data.get('fails', 0) + 1
         if data['fails'] >= self.LOCK_THRESHOLD:
-            # lock for 5 minutes
             data['locked_until'] = datetime.utcnow().isoformat()
         self._write_lock(data)
 
     def is_locked(self) -> bool:
+        if self._use_rust:
+            try:
+                return self._rust.is_locked()
+            except Exception as e:
+                logger.warning(f"Rust is_locked failed: {e}")
         data = self._read_lock()
         if not data.get('locked_until'):
             return False
-        # simple locking logic — in production use timestamps and expirations
         return data.get('fails', 0) >= self.LOCK_THRESHOLD
 
     def rotate_master_password(self, old_password: str, new_password: str, db, cfg_manager):
@@ -89,12 +132,9 @@ class EncryptionManager:
         This operation reads every encrypted blob, decrypts with the old key, then re-encrypts
         with the new key. It must be called with correct old_password.
         """
-        # verify old password
         old_key = self._derive_key(old_password)
         test_fernet = Fernet(old_key)
-        # verify by attempting to decrypt one entry if available
         all_meta = db.list_all()
-        # find an encrypted blob in sqlite or filesystem
         sample = None
         for cat, entries in all_meta.items():
             for k, meta in entries.items():
@@ -105,7 +145,6 @@ class EncryptionManager:
             if sample:
                 break
 
-        # if sample exists, try decrypting to confirm password
         if sample:
             try:
                 base = base64.b64decode(sample[2])
@@ -113,7 +152,6 @@ class EncryptionManager:
             except Exception as e:
                 raise ValueError('Old password verification failed')
 
-        # derive new key and replace salt
         new_salt = os.urandom(32)
         with open(self.SALT_FILE, 'wb') as f:
             f.write(new_salt)
@@ -126,10 +164,6 @@ class EncryptionManager:
         )
         new_key = base64.urlsafe_b64encode(new_kdf.derive(new_password.encode('utf-8')))
 
-        # iterate and re-encrypt
-        # 1) sqlite blobs
-        # fetch entries from sqlite via db.get_blob_entry
-        # db exposes get_blob_entry(category, provider, cfg)
         for category, entries in all_meta.items():
             for key_name, meta in entries.items():
                 parts = key_name.split('_', 1)
@@ -139,13 +173,9 @@ class EncryptionManager:
                 blob_entry = db.get_blob_entry(category, provider, cfg)
                 if blob_entry and blob_entry.get('blob'):
                     raw = base64.b64decode(blob_entry['blob'])
-                    # decrypt with old key
                     old_plain = Fernet(old_key).decrypt(raw)
-                    # encrypt with new key
                     new_cipher = Fernet(new_key).encrypt(old_plain)
                     db.set_blob(category, provider, cfg, {'blob': base64.b64encode(new_cipher).decode('utf-8')})
-        # 2) filesystem files
-        # iterate .sequential directories
         for category in ('tokens', 'apis'):
             enc_dir = os.path.join(cfg_manager.BASE, category, 'encrypted')
             if not os.path.isdir(enc_dir):
@@ -161,5 +191,9 @@ class EncryptionManager:
                 except Exception:
                     continue
 
-        # update in-memory key
         self.key = new_key
+        if self._use_rust and RUST_AVAILABLE:
+            try:
+                self._rust = RustEncryptionManager(new_password, use_argon2=True)
+            except Exception as e:
+                logger.warning(f"Failed to reinitialize Rust EncryptionManager after rotation: {e}")

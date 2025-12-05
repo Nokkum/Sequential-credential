@@ -1,0 +1,38 @@
+[package]
+name = "rust_core"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "rust_core"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.20", features = ["extension-module"] }
+zeroize = { version = "1.7", features = ["derive"] }
+regex = "1.10"
+rayon = "1.8"
+walkdir = "2.4"
+argon2 = "0.5"
+rand = "0.8"
+aes = "0.8"
+aes-gcm = "0.10"
+hkdf = "0.12"
+sha2 = "0.10"
+base64 = "0.21"
+aes-kw = "0.2"
+pbkdf2 = { version = "0.12", features = ["simple"] }
+hmac = "0.12"
+reqwest = { version = "0.11", features = ["blocking", "json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+rusqlite = { version = "0.30", features = ["bundled"] }
+libc = "0.2"
+memmap2 = "0.9"
+parking_lot = "0.12"
+thiserror = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+
+[profile.release]
+opt-level = 3
+lto = true
