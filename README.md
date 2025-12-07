@@ -15,11 +15,11 @@
 - **crypto_advanced** - HKDF key derivation and AES key wrapping for per-provider keys
 - **database** - SQLite database operations with connection pooling
 - **validators** - API token validation for Discord, GitHub, OpenAI, Slack, and Stripe
-- `secure_memory.py` - Falls back to Python ctypes if Rust unavailable
-- `scanner.py` - Falls back to Python regex if Rust unavailable
-- `security.py` - Falls back to Python cryptography library if Rust unavailable
-- `crypto_advanced.py` - Falls back to Python HKDF if Rust unavailable
-- `validators.py` - Falls back to Python requests if Rust unavailable
+- **`secure_memory.py`** - Falls back to Python ctypes if Rust unavailable
+- **`scanner.py`** - Falls back to Python regex if Rust unavailable
+- **`security.py`** - Falls back to Python cryptography library if Rust unavailable
+- **`crypto_advanced.py`** - Falls back to Python HKDF if Rust unavailable
+- **`validators.py`** - Falls back to Python requests if Rust unavailable
 
 ## Features
 - **Master-Password Encryption**: All credentials are encrypted with a master password using modern cryptography (Fernet + PBKDF2).
