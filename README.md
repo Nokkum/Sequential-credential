@@ -41,38 +41,38 @@
 ```
 project_root/
 │
-├─ main.py               # Entry point for GUI
+├─ main.py                     # Entry point for GUI
 ├─ requirements.txt
 ├─ LICENSE
 ├─ README.md
 ├─ docs/
-│  └─ changelogs.md      # Changelogs
+│  └─ changelogs.md            # Changelogs
 │
 ├─ gui/
 │  ├─ __init__.py
-│  ├─ app.py             # Main GUI logic
-│  └─ tray.py            # Optional system tray scaffold
+│  ├─ app.py                   # Main GUI logic
+│  └─ tray.py                  # Optional system tray scaffold
 │
 ├─ core/
 │  ├─ __init__.py        
-│  ├─ security.py        # EncryptionManager
-│  ├─ audit.py           # Auto logging
-│  ├─ backup.py          # Backup + restoration
-│  ├─ cli.py             # CLI Integration
-│  ├─ database.py        # JSON + SQLite + optional Postgres storage
-│  ├─ configs.py         # Filesystem credential management
-│  ├─ migration.py       # Filesystem → DB migration
-│  ├─ validators.py      # Token validation helpers
-│  ├─ expiry.py          # Token expiration heuristics
-│  ├─ profiles.py        # Profile management
-│  ├─ templates.py       # Provider templates
-│  ├─ roles.py           # RBAC scaffold
-│  ├─ generators.py      # JWT / GitHub app token helpers
-│  ├─ scanner.py         # Secret scanning
-│  ├─ crypto_advanced.py # Advanced cryptography utilities
-│  └─ secure_memory.py   # Secure memory handling
+│  ├─ security.py              # EncryptionManager
+│  ├─ audit.py                 # Auto logging
+│  ├─ backup.py                # Backup + restoration
+│  ├─ cli.py                   # CLI Integration
+│  ├─ database.py              # JSON + SQLite + optional Postgres storage
+│  ├─ configs.py               # Filesystem credential management
+│  ├─ migration.py             # Filesystem → DB migration
+│  ├─ validators.py            # Token validation helpers
+│  ├─ expiry.py                # Token expiration heuristics
+│  ├─ profiles.py              # Profile management
+│  ├─ templates.py             # Provider templates
+│  ├─ roles.py                 # RBAC scaffold
+│  ├─ generators.py            # JWT / GitHub app token helpers
+│  ├─ scanner.py               # Secret scanning
+│  ├─ crypto_advanced.py       # Advanced cryptography utilities
+│  └─ secure_memory.py         # Secure memory handling
 │
-└── rust_core/           # High-performance Rust core
+└── rust_core/                 # High-performance Rust core
    ├── src/
    │   ├── lib.rs
    │   ├── security.rs
