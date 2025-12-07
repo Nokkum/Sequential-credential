@@ -174,7 +174,7 @@ The wheel is automatically extracted to site-packages. Build takes ~6 minutes du
 - `PIL / pystray` – optional tray icon support
 
 ## Versions
-- **v1.5** – 2025-12-1
+- **v1.5** – 2025-12-7
   - ### Rust Core Modules
     - **secure_memory** - Memory protection with automatic zeroization and mlock support
     - **scanner** - Fast secret scanning with regex patterns (Google API, OpenAI, GitHub, Discord tokens)

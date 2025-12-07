@@ -1,4 +1,4 @@
-## Version 1.5 (2025-12-01)
+## Version 1.5 (2025-12-07)
 - ### Rust Core Modules
   - **secure_memory** - Memory protection with automatic zeroization and mlock support
   - **scanner** - Fast secret scanning with regex patterns (Google API, OpenAI, GitHub, Discord tokens)
