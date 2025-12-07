@@ -8,7 +8,7 @@
 </p>
 
 ## Changes
-> ### Version 1.5
+- ### Version 1.5
 - **secure_memory** - Memory protection with automatic zeroization and mlock support
 - **scanner** - Fast secret scanning with regex patterns (Google API, OpenAI, GitHub, Discord tokens)
 - **security** - Encryption manager with Argon2id key derivation (upgraded from PBKDF2) and AES-256-GCM encryption
@@ -161,7 +161,7 @@ The wheel is automatically extracted to site-packages. Build takes ~6 minutes du
 - `PIL / pystray` – optional tray icon support
 
 ## Versions
-> **v1.5** – 2025-12-1
+- **v1.5** – 2025-12-1
   - ### Rust Core Modules
     - **secure_memory** - Memory protection with automatic zeroization and mlock support
     - **scanner** - Fast secret scanning with regex patterns (Google API, OpenAI, GitHub, Discord tokens)
@@ -185,11 +185,11 @@ The wheel is automatically extracted to site-packages. Build takes ~6 minutes du
   - Dark mode + multiple themes with saved preferences
   - Keyboard shortcuts (Ctrl+S/C/F, Escape)
   - System tray support with quick-access menu
-> **v1.1** – 2025-11-18
+- **v1.1** – 2025-11-18
   - Added audit, backup, and CLI modules
   - Clipboard auto-wipe functionality
   - Profile switching and RBAC enhancements
-> **v1.0** – 2025-11-17
+- **v1.0** – 2025-11-17
   - Initial release with Tkinter GUI and encrypted credential storage
   - Added token validation and scanning
   - GUI refactor, database migration helpers
