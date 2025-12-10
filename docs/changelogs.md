@@ -40,18 +40,18 @@
 
 
 ## Version 1.1 (2025-11-18)
-- Added audit module
-- Added backup module
-- Added CLI module
-- Clipboard auto-wipe functionality
-- Profile switching
-- RBAC enhancements
+  - Added audit module
+  - Added backup module
+  - Added CLI module
+  - Clipboard auto-wipe functionality
+  - Profile switching
+  - RBAC enhancements
 
 
 ## Version 1.0 (2025-11-17)
-- Initial release
-- Tkinter GUI
-- Encrypted credential storage
-- Token validation (Discord, GitHub)
-- Secret scanning
-- Database migration helpers
+  - Initial release
+  - Tkinter GUI
+  - Encrypted credential storage
+  - Token validation (Discord, GitHub)
+  - Secret scanning
+  - Database migration helpers
