@@ -175,35 +175,35 @@ The wheel is automatically extracted to site-packages. Build takes ~6 minutes du
   - `PIL / pystray` – optional tray icon support
 
 ## Versions
-- **v1.5** – 2025-12-7
-  - ### Rust Core Modules
-    - **secure_memory** - Memory protection with automatic zeroization and mlock support
-    - **scanner** - Fast secret scanning with regex patterns (Google API, OpenAI, GitHub, Discord tokens)
-    - **security** - Encryption manager with Argon2id key derivation (upgraded from PBKDF2) and AES-256-GCM encryption
-    - **crypto_advanced** - HKDF key derivation and AES key wrapping for per-provider keys
-    - **database** - SQLite database operations with connection pooling
-    - **validators** - API token validation for Discord, GitHub, OpenAI, Slack, and Stripe
-  - ### Python Wrapper Modules
-    - `secure_memory.py` - Falls back to Python ctypes if Rust unavailable
-    - `scanner.py` - Falls back to Python regex if Rust unavailable
-    - `security.py` - Falls back to Python cryptography library if Rust unavailable
-    - `crypto_advanced.py` - Falls back to Python HKDF if Rust unavailable
-    - `validators.py` - Falls back to Python requests if Rust unavailable
-- **v1.2** – 2025-12-1
-  - New table-based credential list with search/filter and favorites
-  - Clipboard copy with 30s secure auto-wipe
-  - Auto-lock timeout + lock screen requiring master password
-  - Password strength indicator for master password setup/rotation
-  - Custom categories, notes field, and expiry dates with reminders
-  - CSV import and improved expiry status display
-  - Dark mode + multiple themes with saved preferences
-  - Keyboard shortcuts (Ctrl+S/C/F, Escape)
-  - System tray support with quick-access menu
-- **v1.1** – 2025-11-18
-  - Added audit, backup, and CLI modules
-  - Clipboard auto-wipe functionality
-  - Profile switching and RBAC enhancements
-- **v1.0** – 2025-11-17
-  - Initial release with Tkinter GUI and encrypted credential storage
-  - Added token validation and scanning
-  - GUI refactor, database migration helpers
+  - **v1.5** – 2025-12-7
+    - ### Rust Core Modules
+      - **secure_memory** - Memory protection with automatic zeroization and mlock support
+      - **scanner** - Fast secret scanning with regex patterns (Google API, OpenAI, GitHub, Discord tokens)
+      - **security** - Encryption manager with Argon2id key derivation (upgraded from PBKDF2) and AES-256-GCM encryption
+      - **crypto_advanced** - HKDF key derivation and AES key wrapping for per-provider keys
+      - **database** - SQLite database operations with connection pooling
+      - **validators** - API token validation for Discord, GitHub, OpenAI, Slack, and Stripe
+    - ### Python Wrapper Modules
+      - `secure_memory.py` - Falls back to Python ctypes if Rust unavailable
+      - `scanner.py` - Falls back to Python regex if Rust unavailable
+      - `security.py` - Falls back to Python cryptography library if Rust unavailable
+      - `crypto_advanced.py` - Falls back to Python HKDF if Rust unavailable
+      - `validators.py` - Falls back to Python requests if Rust unavailable
+  - **v1.2** – 2025-12-1
+    - New table-based credential list with search/filter and favorites
+    - Clipboard copy with 30s secure auto-wipe
+    - Auto-lock timeout + lock screen requiring master password
+    - Password strength indicator for master password setup/rotation
+    - Custom categories, notes field, and expiry dates with reminders
+    - CSV import and improved expiry status display
+    - Dark mode + multiple themes with saved preferences
+    - Keyboard shortcuts (Ctrl+S/C/F, Escape)
+    - System tray support with quick-access menu
+  - **v1.1** – 2025-11-18
+    - Added audit, backup, and CLI modules
+    - Clipboard auto-wipe functionality
+    - Profile switching and RBAC enhancements
+  - **v1.0** – 2025-11-17
+    - Initial release with Tkinter GUI and encrypted credential storage
+    - Added token validation and scanning
+    - GUI refactor, database migration helpers
